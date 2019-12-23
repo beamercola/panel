@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Component from "./Component";
 import withData from "../lib/apollo";
 
 const Panel = ({ id }) => {
+  const [update] = useMutation(UPDATE, { onCompleted: () => refetch() });
+  const [insert] = useMutation(INSERT, { onCompleted: () => refetch() });
+  const [destroy] = useMutation(DESTROY, { onCompleted: () => refetch() });
   const { loading, error, data, refetch } = useQuery(query, {
     variables: { id }
   });
@@ -21,9 +24,13 @@ const Panel = ({ id }) => {
           <li className="px-4 py-2 border-b border-gray-100" key={component.id}>
             <Component
               id={component.id}
+              panelId={id}
               type={component.type}
               configuration={component.configuration}
               refetch={refetch}
+              update={update}
+              insert={insert}
+              destroy={destroy}
             />
           </li>
         ))}
@@ -49,6 +56,51 @@ const query = gql`
         type
         configuration
         position
+      }
+    }
+  }
+`;
+
+const UPDATE = gql`
+  mutation UpdateComponent($id: uuid!, $configuration: jsonb!) {
+    update_components(
+      where: { id: { _eq: $id } }
+      _set: { configuration: $configuration }
+    ) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+const INSERT = gql`
+  mutation InsertComponent(
+    $type: String!
+    $panel_id: uuid!
+    $position: Int
+    $configuration: jsonb
+  ) {
+    insert_components(
+      objects: {
+        type: $type
+        panel_id: $panel_id
+        position: $position
+        configuration: $configuration
+      }
+    ) {
+      returning {
+        id
+      }
+    }
+  }
+`;
+
+const DESTROY = gql`
+  mutation DeleteComponent($id: uuid!) {
+    delete_components(where: { id: { _eq: $id } }) {
+      returning {
+        id
       }
     }
   }

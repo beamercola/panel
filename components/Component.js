@@ -3,9 +3,13 @@ import Text from "./components/Text";
 import Status from "./components/Status";
 import StatusForm from "./components/StatusForm";
 import TextForm from "./components/TextForm";
-import { ContextMenu, ContextMenuTrigger } from "react-contextmenu";
-import { gql } from "apollo-boost";
-import { useMutation } from "@apollo/react-hooks";
+
+import {
+  ContextMenu,
+  ContextMenuTrigger,
+  MenuItem,
+  SubMenu
+} from "react-contextmenu";
 
 const components = {
   Status: Status,
@@ -14,9 +18,15 @@ const components = {
   TextForm: TextForm
 };
 
-const Component = ({ id, type, configuration, refetch }) => {
-  const [update] = useMutation(UPDATE, { onCompleted: () => refetch() });
-
+const Component = ({
+  id,
+  type,
+  configuration,
+  panelId,
+  insert,
+  update,
+  destroy
+}) => {
   return (
     <>
       <ContextMenuTrigger id={id}>
@@ -32,22 +42,43 @@ const Component = ({ id, type, configuration, refetch }) => {
           configuration,
           update
         })}
+        <MenuItem divider />
+        <SubMenu title="Insert">
+          <MenuItem
+            onClick={() =>
+              insert({
+                variables: {
+                  type: "Text",
+                  panel_id: panelId,
+                  configuration: {},
+                  position: 10
+                }
+              })
+            }
+          >
+            Text
+          </MenuItem>
+          <MenuItem
+            onClick={() =>
+              insert({
+                variables: {
+                  type: "Status",
+                  panel_id: panelId,
+                  configuration: { color: "blue" },
+                  position: 10
+                }
+              })
+            }
+          >
+            Indicator
+          </MenuItem>
+        </SubMenu>
+        <MenuItem onClick={() => destroy({ variables: { id: id } })}>
+          Delete
+        </MenuItem>
       </ContextMenu>
     </>
   );
 };
 
 export default Component;
-
-const UPDATE = gql`
-  mutation MyMutation($id: uuid!, $configuration: jsonb!) {
-    update_components(
-      where: { id: { _eq: $id } }
-      _set: { configuration: $configuration }
-    ) {
-      returning {
-        id
-      }
-    }
-  }
-`;

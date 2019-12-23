@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ContextMenu, MenuItem } from "react-contextmenu";
+import { MenuItem } from "react-contextmenu";
 
 const TextForm = props => {
   const [value, setValue] = useState(props.configuration.value);
