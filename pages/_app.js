@@ -3,6 +3,8 @@ import App from "next/app";
 import { ApolloProvider } from "@apollo/react-hooks";
 import withData from "../lib/apollo";
 
+import "../style.css";
+
 class MyApp extends App {
   render() {
     const { Component, pageProps, apollo } = this.props;
