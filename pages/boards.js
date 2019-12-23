@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
-import Head from "next/head";
+import Helmet from "react-helmet";
 import Board from "../components/Board";
 
 const Home = () => {
@@ -13,9 +13,7 @@ const Home = () => {
 
   return (
     <>
-      <Head>
-        <title>Boards</title>
-      </Head>
+      <Helmet title="Boards" />
       <div>{boards.map(board => board.name)}</div>
       <Board board={currentBoard} />
     </>

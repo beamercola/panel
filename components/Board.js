@@ -13,8 +13,8 @@ const Board = ({ id }) => {
   return (
     <div className="flex -mx-8">
       {board.panels.map(panel => (
-        <div className="w-1/3 px-8">
-          <Panel key={panel.id} id={panel.id} />
+        <div key={panel.id} className="w-1/3 px-8">
+          <Panel id={panel.id} />
         </div>
       ))}
     </div>

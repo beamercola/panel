@@ -1,15 +1,31 @@
 import React from "react";
 import Text from "./components/Text";
 import Status from "./components/Status";
+import StatusForm from "./components/StatusForm";
+import TextForm from "./components/TextForm";
+import { ContextMenuTrigger } from "react-contextmenu";
 
 const components = {
   Status: Status,
-  Text: Text
+  StatusForm: StatusForm,
+  Text: Text,
+  TextForm: TextForm
 };
 
-const Component = ({ type, configuration }) => {
-  console.log(type);
-  return React.createElement(components[type], configuration);
+const Component = ({ id, type, configuration }) => {
+  return (
+    <>
+      <ContextMenuTrigger id={id}>
+        {React.createElement(components[type], configuration)}
+      </ContextMenuTrigger>
+
+      {React.createElement(components[`${type}Form`], {
+        id: id,
+        className: "bg-white border border-gray-300 rounded shadow-lg w-64",
+        configuration: configuration
+      })}
+    </>
+  );
 };
 
 export default Component;

@@ -1,16 +1,19 @@
 import React from "react";
 
-const Status = ({ color }) => {
-  var bg;
+function colorToClass(color) {
   switch (color) {
     case "green":
-      bg = "bg-green-400";
+      return "bg-green-400";
       break;
   }
+}
 
+const Status = ({ color }) => {
   return (
     <div className="text-right">
-      <div className={`rounded-full h-4 w-4 inline-block ${bg}`}></div>
+      <div
+        className={`rounded-full h-4 w-4 inline-block ${colorToClass(color)}`}
+      ></div>
     </div>
   );
 };

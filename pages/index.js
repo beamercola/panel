@@ -1,12 +1,10 @@
 import React from "react";
-import Head from "next/head";
+import Helmet from "react-helmet";
 
 const Home = () => {
   return (
     <>
-      <Head>
-        <title>Home</title>
-      </Head>
+      <Helmet title="Home" />
     </>
   );
 };

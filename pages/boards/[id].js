@@ -13,15 +13,13 @@ const BoardPage = () => {
 
   return (
     <>
-      <Head>
-        <title>Boards</title>
-      </Head>
       <div className="flex fixed w-screen h-screen p-16">
         <div className="w-2/12 flex-shrink-0 p-6">
           <ul className="text-sm">
             {boards.map(board => (
               <li
                 className={`${board.id === currentBoard.id && "font-normal"}`}
+                key={board.id}
               >
                 {board.name}
               </li>

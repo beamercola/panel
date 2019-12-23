@@ -21,6 +21,7 @@ const Panel = ({ id }) => {
         {components.map(component => (
           <li className="px-4 py-2 border-b border-gray-100" key={component.id}>
             <Component
+              id={component.id}
               type={component.type}
               configuration={component.configuration}
             />
