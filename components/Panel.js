@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 import Component from "./Component";
-
-const loadComponents = () => {};
+import withData from "../lib/apollo";
 
 const Panel = ({ id }) => {
   const { loading, error, data, refetch } = useQuery(query, {
@@ -24,6 +23,7 @@ const Panel = ({ id }) => {
               id={component.id}
               type={component.type}
               configuration={component.configuration}
+              refetch={refetch}
             />
           </li>
         ))}
@@ -44,10 +44,11 @@ const query = gql`
   query Panel($id: uuid!) {
     panels_by_pk(id: $id) {
       id
-      components {
+      components(order_by: { position: asc }) {
         id
         type
         configuration
+        position
       }
     }
   }

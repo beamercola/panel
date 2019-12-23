@@ -1,12 +1,5 @@
 import React from "react";
-
-function colorToClass(color) {
-  switch (color) {
-    case "green":
-      return "bg-green-400";
-      break;
-  }
-}
+import { colorToClass } from "../../lib/color";
 
 const Status = ({ color }) => {
   return (

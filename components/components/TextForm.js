@@ -3,9 +3,17 @@ import { ContextMenu, MenuItem } from "react-contextmenu";
 
 const TextForm = props => {
   const [value, setValue] = useState(props.configuration.value);
+  const { configuration, id, update } = props;
+
+  const handleSubmit = () => {
+    console.log("submitting");
+    update({
+      variables: { id, configuration: { ...configuration, value } }
+    });
+  };
 
   return (
-    <ContextMenu {...props}>
+    <>
       <MenuItem
         className="px-2 py-2 border-b border-gray-200 flex"
         preventClose={true}
@@ -17,14 +25,14 @@ const TextForm = props => {
           type="text"
           value={value}
         />
-        <input
+        <button
           className="bg-transparent font-medium ml-2"
-          type="submit"
-          value="Save"
-          onClick={() => console.log(value)}
-        />
+          onClick={() => handleSubmit()}
+        >
+          Save
+        </button>
       </MenuItem>
-    </ContextMenu>
+    </>
   );
 };
 
