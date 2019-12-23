@@ -16,8 +16,22 @@ const BoardPage = () => {
       <Head>
         <title>Boards</title>
       </Head>
-      <div>{boards.map(board => board.name)}</div>
-      <Board id={currentBoard.id} />
+      <div className="flex fixed w-screen h-screen p-16">
+        <div className="w-2/12 flex-shrink-0 p-6">
+          <ul className="text-sm">
+            {boards.map(board => (
+              <li
+                className={`${board.id === currentBoard.id && "font-normal"}`}
+              >
+                {board.name}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="p-6 flex-grow rounded-lg">
+          <Board id={currentBoard.id} />
+        </div>
+      </div>
     </>
   );
 };

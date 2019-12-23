@@ -11,9 +11,11 @@ const Board = ({ id }) => {
   const { boards_by_pk: board } = data;
 
   return (
-    <div>
+    <div className="flex -mx-8">
       {board.panels.map(panel => (
-        <Panel key={panel.id} id={panel.id} />
+        <div className="w-1/3 px-8">
+          <Panel key={panel.id} id={panel.id} />
+        </div>
       ))}
     </div>
   );

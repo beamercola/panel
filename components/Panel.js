@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import Component from "./Component";
 
 const loadComponents = () => {};
 
@@ -15,13 +16,23 @@ const Panel = ({ id }) => {
   const { components } = panel;
 
   return (
-    <div className="card">
+    <div className="bg-white rounded-lg shadow-lg">
       <ul>
         {components.map(component => (
-          <li key={component.id}>{component.type}</li>
+          <li className="px-4 py-2 border-b border-gray-100" key={component.id}>
+            <Component
+              type={component.type}
+              configuration={component.configuration}
+            />
+          </li>
         ))}
       </ul>
-      <button onClick={() => refetch()}>Refetch</button>
+      <button
+        className="px-4 py-2 text-xs uppercase font-bold text-gray-400"
+        onClick={() => refetch()}
+      >
+        Refetch
+      </button>
     </div>
   );
 };
