@@ -5,7 +5,6 @@ const LatestCommitForm = ({ configuration, update }) => {
   const [repo, setRepo] = useState(configuration.repo);
 
   const handleSubmit = () => {
-    console.log("submitting");
     update({
       variables: {
         id,

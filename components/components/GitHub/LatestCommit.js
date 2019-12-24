@@ -16,7 +16,6 @@ const LatestCommit = ({ owner, repo }) => {
         setCommit(data[0]);
       });
   }, []);
-  console.log(commit);
 
   return (
     <Message
