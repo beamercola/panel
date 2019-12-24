@@ -3,6 +3,25 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import Board from "../components/Board";
 import "../style.css";
+import moment from "moment";
+
+moment.locale("en", {
+  relativeTime: {
+    future: "%s",
+    past: "%s",
+    s: "S",
+    m: "1M",
+    mm: "%dM",
+    h: "1H",
+    hh: "%dH",
+    d: "1D",
+    dd: "%dd",
+    M: "1M",
+    MM: "%dM",
+    y: "1Y",
+    yy: "%dY"
+  }
+});
 
 const Index = () => {
   const { loading, error, data } = useQuery(query);

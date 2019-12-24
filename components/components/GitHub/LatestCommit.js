@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 const Octokit = require("@octokit/rest");
+import Message from "../Message";
 
 const LatestCommit = ({ owner, repo }) => {
   const [commit, setCommit] = useState({});
@@ -15,21 +16,20 @@ const LatestCommit = ({ owner, repo }) => {
         setCommit(data[0]);
       });
   }, []);
+  console.log(commit);
 
   return (
-    <div className="text-xs break-words">
-      {commit && commit.author && (
-        <div className="flex items-center font-medium mb-1">
-          <img
-            className="w-4 h-4 inline-block rounded-full mr-2"
-            src={commit.author.avatar_url}
-            alt={commit.author.login}
-          />
-          {commit.author.login}
-        </div>
-      )}
-      {commit && commit.commit && commit.commit.message}
-    </div>
+    <Message
+      name={commit && commit.author && commit.author.login}
+      image={commit && commit.author && commit.author.avatar_url}
+      body={commit && commit.commit && commit.commit.message}
+      date={
+        commit &&
+        commit.commit &&
+        commit.commit.author &&
+        commit.commit.author.date
+      }
+    />
   );
 };
 

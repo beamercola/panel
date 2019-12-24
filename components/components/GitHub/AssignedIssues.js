@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PhotoArray from "../PhotoArray";
 const Octokit = require("@octokit/rest");
 
 const AssignedIssues = ({ owner, repo }) => {
@@ -7,12 +8,8 @@ const AssignedIssues = ({ owner, repo }) => {
 
   useEffect(() => {
     octokit.issues
-      .listAssignees({
-        owner: owner,
-        repo: repo
-      })
+      .listAssignees({ owner: owner, repo: repo })
       .then(({ data }) => {
-        console.log(data);
         setUsers(data);
       });
   }, []);
@@ -20,15 +17,12 @@ const AssignedIssues = ({ owner, repo }) => {
   return (
     <div className="text-xs break-words">
       <label className="label-xs">Outstanding Issues</label>
-      <div className="flex flex-wrap">
-        {users.map(user => (
-          <img
-            className="w-6 h-6 inline-block rounded-full mr-2 mb-2"
-            src={user.avatar_url}
-            alt={user.login}
-          />
-        ))}
-      </div>
+      <PhotoArray
+        items={users.map(user => ({
+          image: user.avatar_url,
+          name: user.login
+        }))}
+      />
     </div>
   );
 };
