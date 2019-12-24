@@ -6,7 +6,7 @@ module.exports = {
         mono: ["Roboto Mono", "monospace"]
       },
       fontSize: {
-        xxs: ".625"
+        xxs: ".625rem"
       },
       spacing: {
         "72": "18rem",
@@ -15,6 +15,8 @@ module.exports = {
       }
     }
   },
-  variants: {},
+  variants: {
+    borderWidth: ["last"]
+  },
   plugins: []
 };

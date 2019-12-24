@@ -4,8 +4,6 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import Helmet from "react-helmet";
 import withData from "../lib/apollo";
 
-import "../style.css";
-
 class MyApp extends App {
   render() {
     const { Component, pageProps, apollo } = this.props;

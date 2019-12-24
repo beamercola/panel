@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 import Board from "../components/Board";
+import "../style.css";
 
 const Index = () => {
   const { loading, error, data } = useQuery(query);

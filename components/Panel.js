@@ -18,30 +18,35 @@ const Panel = ({ id }) => {
   const { components } = panel;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg">
-      <ul>
-        {components.map(component => (
-          <li className="px-4 py-2 border-b border-gray-100" key={component.id}>
-            <Component
-              id={component.id}
-              panelId={id}
-              type={component.type}
-              configuration={component.configuration}
-              refetch={refetch}
-              update={update}
-              insert={insert}
-              destroy={destroy}
-            />
-          </li>
-        ))}
-      </ul>
+    <>
+      <div className="bg-white rounded-lg shadow-lg">
+        <ul>
+          {components.map(component => (
+            <li
+              className="px-4 py-2 border-b border-gray-100 last:border-b-0"
+              key={component.id}
+            >
+              <Component
+                id={component.id}
+                panelId={id}
+                type={component.type}
+                configuration={component.configuration}
+                refetch={refetch}
+                update={update}
+                insert={insert}
+                destroy={destroy}
+              />
+            </li>
+          ))}
+        </ul>
+      </div>
       <button
-        className="px-4 py-2 text-xs uppercase font-bold text-gray-400"
+        className="px-4 py-2 text-xs uppercase font-medium text-gray-500"
         onClick={() => refetch()}
       >
         Refetch
       </button>
-    </div>
+    </>
   );
 };
 
