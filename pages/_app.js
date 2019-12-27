@@ -1,10 +1,10 @@
 import React from "react";
 import App from "next/app";
+import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { Auth0Provider } from "use-auth0-hooks";
 import Helmet from "react-helmet";
 import moment from "moment";
-import withData from "../lib/apollo";
+import fetch from "node-fetch";
 
 moment.locale("en", {
   relativeTime: {
@@ -24,29 +24,28 @@ moment.locale("en", {
   }
 });
 
+const client = new ApolloClient({
+  uri: process.env.GRAPHQL_ENDPOINT,
+  fetch: fetch
+  // headers: { authorization: `Bearer ${accessToken}` } // NEED TOKEN
+});
+
 class MyApp extends App {
   render() {
-    const { Component, pageProps, apollo } = this.props;
+    const { Component, pageProps } = this.props;
 
     return (
-      <ApolloProvider client={apollo}>
-        <Auth0Provider
-          domain={process.env.AUTH0_DOMAIN}
-          clientId={process.env.AUTH0_CLIENT}
-          redirectUri={"http://localhost:3000"}
-        >
-          <Helmet bodyAttributes={{ class: "bg-gray-300 font-mono font-thin" }}>
-            <link
-              href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500&display=swap"
-              rel="stylesheet"
-            />
-          </Helmet>
-          <Component {...pageProps} />
-        </Auth0Provider>
+      <ApolloProvider client={client}>
+        <Helmet bodyAttributes={{ class: "bg-gray-300 font-mono font-thin" }}>
+          <link
+            href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500&display=swap"
+            rel="stylesheet"
+          />
+        </Helmet>
+        <Component {...pageProps} />
       </ApolloProvider>
     );
   }
 }
 
-// Wraps all components in the tree with the data provider
-export default withData(MyApp);
+export default MyApp;

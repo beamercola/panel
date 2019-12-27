@@ -1,13 +1,10 @@
 import React, { useState } from "react";
-import { withAuth, withLoginRequired, useAuth } from "use-auth0-hooks";
 import Board from "../components/Board";
 import BoardList from "../components/BoardList";
 import "../style.css";
 
 const Index = ({ auth }) => {
   const [currentBoard, setCurrentBoard] = useState();
-  const { isAuthenticated, isLoading, login, logout } = useAuth();
-  console.log(useAuth(true));
 
   return (
     <>
@@ -26,5 +23,4 @@ const Index = ({ auth }) => {
   );
 };
 
-export default withLoginRequired(withAuth(Index));
-// export default Index;
+export default Index;

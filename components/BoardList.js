@@ -1,19 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useAuth } from "use-auth0-hooks";
 import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
-const BoardList = ({ auth, currentBoard, setCurrentBoard }) => {
-  const { loading, error, data } = useQuery(query, {
-    // context: { headers: { authorization: `Bearer ${accessToken}` } }
-  });
+const BoardList = ({ currentBoard, setCurrentBoard }) => {
+  const { loading, error, data } = useQuery(query);
 
   console.log(error);
 
   if (loading || error) return <p>Loading...</p>;
 
   const { boards } = data;
-  const { user } = auth;
 
   setCurrentBoard(boards[0]);
 
