@@ -1,10 +1,8 @@
-import React from "react";
-import App from "next/app";
-import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
+import withApollo from "../lib/withApollo";
+import App from "next/app";
 import Helmet from "react-helmet";
 import moment from "moment";
-import fetch from "node-fetch";
 
 moment.locale("en", {
   relativeTime: {
@@ -24,18 +22,12 @@ moment.locale("en", {
   }
 });
 
-const client = new ApolloClient({
-  uri: process.env.GRAPHQL_ENDPOINT,
-  fetch: fetch
-  // headers: { authorization: `Bearer ${accessToken}` } // NEED TOKEN
-});
-
 class MyApp extends App {
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, apollo } = this.props;
 
     return (
-      <ApolloProvider client={client}>
+      <ApolloProvider client={apollo}>
         <Helmet bodyAttributes={{ class: "bg-gray-300 font-mono font-thin" }}>
           <link
             href="https://fonts.googleapis.com/css?family=Roboto+Mono:300,400,500&display=swap"
@@ -48,4 +40,4 @@ class MyApp extends App {
   }
 }
 
-export default MyApp;
+export default withApollo(MyApp);

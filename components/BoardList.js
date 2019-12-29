@@ -3,15 +3,15 @@ import { gql } from "apollo-boost";
 import { useQuery } from "@apollo/react-hooks";
 
 const BoardList = ({ currentBoard, setCurrentBoard }) => {
-  const { loading, error, data } = useQuery(query);
-
-  console.log(error);
+  const { loading, error, data } = useQuery(BOARDS_QUERY);
 
   if (loading || error) return <p>Loading...</p>;
 
   const { boards } = data;
 
-  setCurrentBoard(boards[0]);
+  useEffect(() => {
+    setCurrentBoard(boards[0]);
+  }, []);
 
   return (
     <ul className="text-sm">
@@ -31,8 +31,8 @@ const BoardList = ({ currentBoard, setCurrentBoard }) => {
 
 export default BoardList;
 
-const query = gql`
-  query Index {
+const BOARDS_QUERY = gql`
+  query BOARDS_QUERY {
     boards {
       id
       name
