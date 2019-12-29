@@ -13,13 +13,18 @@ const Index = () => {
   return (
     <>
       <div className="flex fixed w-screen h-screen p-16">
-        {user && user.me && user.me.name}
-        {!user && <a href="/api/auth/login">Log In</a>}
+        {user && user.me && user.me.name ? (
+          <>
+            <a href="/api/auth/logout">Log Out</a>
+          </>
+        ) : (
+          <a href="/api/auth/login">Log In</a>
+        )}
         <div className="w-2/12 flex-shrink-0 p-6">
-          {/* <BoardList
+          <BoardList
             currentBoard={currentBoard}
             setCurrentBoard={setCurrentBoard}
-          /> */}
+          />
         </div>
         <div className="p-6 flex-grow rounded-lg">
           {/* {currentBoard && <Board id={currentBoard.id} />} */}

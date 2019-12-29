@@ -1,5 +1,5 @@
 import BaseDocument from "next/document";
-import auth0 from "../utils/auth0";
+import auth0 from "../lib/auth0";
 
 export default class Document extends BaseDocument {
   // get token from request context and set it as a prop
