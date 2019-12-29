@@ -15,6 +15,7 @@ const Index = () => {
       <div className="flex fixed w-screen h-screen p-16">
         {user && user.me && user.me.name ? (
           <>
+            {user.me.name}
             <a href="/api/auth/logout">Log Out</a>
           </>
         ) : (
